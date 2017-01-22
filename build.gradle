@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'gs-messaging-stomp-websocket'
+    version = '0.1.0'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.3.RELEASE'
+  	compile group: 'org.springframework.boot', name:'spring-boot-starter'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+  	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    compile group: 'org.springframework.boot', name: 'spring-boot-actuator-docs'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp'
+  
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+   compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.webjars:webjars-locator")
+    compile("org.webjars:sockjs-client:1.0.2")
+    compile("org.webjars:stomp-websocket:2.3.3")
+    compile("org.webjars:bootstrap:3.3.7")
+    compile("org.webjars:jquery:3.1.0")
+ 
+}
+bootRun {
+	
+	bootRun.doFirst{
+		println 'USAGE : bootRun  -PdebugPort=<port>'
+	}
+	
+	if (project.hasProperty("debugPort")){
+		jvmArgs = ['-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,suspend=n,address=' + debugPort]
+	}
+	
+	
+}
+
+
